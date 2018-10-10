@@ -25,7 +25,9 @@ var cards = [
 ];
 var cardsInPlay = [];
 
+var successfulMatch = 0;
 
+//var gameOver = false;
 
 var createBoard = function () {
 	for (var i = 0; i < cards.length; i++) {
@@ -42,6 +44,7 @@ var resetPage = function () {
 	var imageReset = document.querySelectorAll('#game-board img');
 	for (var i = 0; i < imageReset.length; i++) {
 		imageReset[i].setAttribute('src', 'images/back.png');
+	//gameOver = false;
 	}
 };
 
@@ -58,12 +61,28 @@ var checkForMatch = function () {
 		console.log;
 	} else if (cardsInPlay[0] === cardsInPlay[1]) {
 		console.log("You found a match!");
+		successfulMatch = (successfulMatch + 1);
+		document.getElementById('gameScore').innerHTML = successfulMatch;
 	} else {
 		console.log("Sorry, try again.");
 	}
 };
 
+
+
 var flipCard = function () {
+
+	//if game over, return
+	/*
+	if (gameOver = true) {
+		console.log("gameover");
+		return;
+	} else {
+		*/
+
+	if (cardsInPlay.length === 2) {
+		return;
+	} else {
 
 	var cardId = this.getAttribute('data-id');
 	console.log("User flipped " + cards[cardId].rank + " of " + cards[cardId].suit);
@@ -72,6 +91,9 @@ var flipCard = function () {
 	this.setAttribute('src', cards[cardId].cardImage);	
 
 	checkForMatch();
+
+}
+	
 };
 
 
